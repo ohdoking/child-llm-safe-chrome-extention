@@ -1,4 +1,4 @@
-# Child Safe Content Filter
+# Child LLM Safe Guard Chrome Extention
 
 A Chrome extension that helps protect children from inappropriate content by automatically filtering and blurring potentially unsafe content in real-time. The extension offers both local machine learning and GPT-based content filtering options.
 
@@ -26,7 +26,7 @@ A Chrome extension that helps protect children from inappropriate content by aut
 
 1. Clone this repository
    ```bash
-   git clone [your-repo-url]
+   git clone https://github.com/ohdoking/child-llm-safe-chrome-extention
    ```
 
 2. Open Chrome and go to `chrome://extensions/`
@@ -109,4 +109,3 @@ Contributions are welcome! Please open an issue or submit a pull request.
 ## Support
 
 For support, please open an issue in the repository.
-# child-llm-safe-chrome-extention
