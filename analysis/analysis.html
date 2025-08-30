@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Filter Analysis</title>
+  <style>
+    body {
+      max-width: 1000px; /* Increased max-width for better centering */
+      width: 90%;
+      margin: 0 auto; /* Center the content */
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+    
+    .main-container {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      display: none; /* Hide by default, will be shown after password */
+    }
+    
+    .left-column {
+      flex: 1;
+    }
+    
+    .right-column {
+      width: 300px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #1a73e8;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 15px 20px;
+      margin-bottom: 15px;
+    }
+
+    .stats-container {
+      display: none;
+      gap: 10px;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #f5f6fa;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .stat-label {
+      font-weight: 600;
+    }
+
+    .stat-value {
+      color: #1a73e8;
+      font-weight: 600;
+    }
+
+    #chartContainer {
+      display: none;
+      margin-bottom: 15px;
+    }
+
+    .blocked-list {
+      max-height: 700px;
+      overflow-y: auto;
+      border-radius: 8px;
+      padding: 10px;
+      background: #fff;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+      display: none;
+    }
+
+    .blocked-item {
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+    }
+
+    .blocked-item:last-child {
+      border-bottom: none;
+    }
+
+    .timestamp {
+      color: #999;
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    #passwordPrompt {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #passwordInput {
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 70%;
+      margin-bottom: 10px;
+    }
+
+    #passwordButton {
+      padding: 8px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #4e9af1, #1a73e8);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #passwordButton:hover {
+      background: linear-gradient(90deg, #1a73e8, #4e9af1);
+    }
+
+    #errorMsg {
+      color: red;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+  </style>
+  <script src="../libs/chart.min.js"></script>
+</head>
+<body>
+  <h1>Content Filter Analysis</h1>
+
+  <div id="passwordPrompt" class="card">
+    <p>Only parents can view this analysis. Please enter your password:</p>
+    <input type="password" id="passwordInput" placeholder="Enter parent password" />
+    <br>
+    <button id="passwordButton">Submit</button>
+    <div id="errorMsg"></div>
+  </div>
+
+  <div id="contentContainer" class="main-container">
+    <div class="left-column">
+      <div class="stats-container card">
+        <div class="stat-item">
+          <span class="stat-label">Total Messages Checked:</span>
+          <span id="totalChecked" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Blocked Messages:</span>
+          <span id="blockedCount" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Block Rate:</span>
+          <span id="blockRate" class="stat-value">0%</span>
+        </div>
+      </div>
+
+      <div id="chartContainer" class="card">
+        <canvas id="blockChart" width="360" height="200"></canvas>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <div class="card" style="position: sticky; top: 20px;">
+        <h2 style="font-size:16px; margin-bottom:10px;">Recently Blocked Content</h2>
+        <div id="blockedList" class="blocked-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="analysis.js"></script>
+</body>
+</html>
